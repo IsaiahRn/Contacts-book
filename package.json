@@ -1,0 +1,39 @@
+{
+  "name": "contacts-book",
+  "version": "1.0.0",
+  "description": "You can use the [editor on GitHub](https://github.com/kodek-sleuth/Contacts-book/edit/master/README.md) to maintain and preview the content for your website in Markdown files.",
+  "main": "app.js",
+  "scripts": {
+    "test": "mocha --require @babel/register ./test --timeout 10000 --exit",
+    "start": "nodemon --exec babel-node App/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kodek-sleuth/Contacts-book.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kodek-sleuth/Contacts-book/issues"
+  },
+  "homepage": "https://github.com/kodek-sleuth/Contacts-book#readme",
+  "dependencies": {
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.4",
+    "@babel/node": "^7.2.2",
+    "@babel/preset-env": "^7.4.3",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.6.0",
+    "morgan": "^1.9.1",
+    "nodemon": "^1.19.1"
+  },
+  "devDependencies": {
+    "eslint": "^5.16.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.17.3",
+    "eslint-plugin-node": "^9.1.0",
+    "eslint-plugin-promise": "^4.1.1",
+    "eslint-plugin-standard": "^4.0.0"
+  }
+}
