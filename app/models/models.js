@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 // Setting up contacts collection
 const { Schema } = mongoose;
 const contactSchema = new Schema({
+  _id: mongoose.Schema.Types.ObjectId,
   firstname: { type: String, required: true },
   lastname: String,
   telephone: { type: Number, required: true },
