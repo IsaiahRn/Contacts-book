@@ -4,7 +4,7 @@ import mongoose from 'mongoose';
 const { Schema } = mongoose;
 const contactSchema = new Schema({
   firstname: { type: String, required: true },
-  lastname: { type: String, required: true },
+  lastname: String,
   telephone: { type: Number, required: true },
   email: { type: String, match: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/ },
   homeAddress: String,

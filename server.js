@@ -22,6 +22,4 @@ mongoose.connect(process.env.DB_URL, { useNewUrlParser: true })
   .then(() => console.log('Connection Successful'))
   .catch(error => console.error(error));
 
-app.use()
-
 server.listen(port);
