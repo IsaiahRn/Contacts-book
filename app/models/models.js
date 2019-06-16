@@ -1,13 +1,16 @@
 import mongoose from 'mongoose';
 
 // Setting up contacts collection
-const contacts = mongoose.Schema({
-  firstname: { type: String, required: true },
+const { Schema } = mongoose;
+const contactSchema = new Schema({
+  firstname: String,
   lastname: String,
+  telephone: Number,
   email: String,
   homeAddress: String,
   workAddress: String,
   organisation: String,
-}, { collection: 'contacts' });
+});
 
-module.exports = mongoose.model('contacts', contacts); // Exporting the created model
+const contacts = mongoose.model('contacts', contactSchema);
+export default contacts;
