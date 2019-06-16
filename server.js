@@ -22,4 +22,18 @@ mongoose.connect(process.env.DB_URL, { useNewUrlParser: true })
   .then(() => console.log('Connection Successful'))
   .catch(error => console.error(error));
 
+app.use((req, res, next) => {
+  // Error Handling
+  const error = new Error('Not Found');
+  error.status = 404;
+  next(error);
+});
+
+app.use((error, req, res, next) => {
+  res.status(error.status || 500);
+  res.json({
+    Error: error.message,
+  });
+});
+
 server.listen(port);
