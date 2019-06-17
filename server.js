@@ -6,6 +6,7 @@ import mongoose from 'mongoose';
 import http from 'http';
 import contactRoutes from './app/routes/contanctRouter';
 import route from './app/routes/random';
+import view from './app/routes/view';
 
 require('dotenv').config();
 
@@ -35,8 +36,7 @@ if (process.env.NODE_ENV === 'DB_URL') {
 
 app.use('/contacts', contactRoutes);
 app.use('/contacts', route);
-
-
+app.use('/contacts', view);
 // Routes which should handle requests
 app.use('/contacts', contactRoutes);
 app.use((req, res, next) => {
