@@ -86,27 +86,3 @@ class contactController {
 }
 
 export default contactController;
-
-//         Contact.findByIdAndUpdate({ id: req.params.id }).exec((err, contact) => {
-  //             // Handle database errors
-  //         if (err) {
-  //             res.status(500).send(err);
-  //         } else {
-  //             contact.firstname = req.body.contact.firstname || contact.firstname;
-  //             contact.lastname = req.body.contact.lastname || contact.lastname;
-  //             contact.telephone = req.body.contact.telephone || contact.telephone;
-  //             contact.email = req.body.contact.email || contact.email;
-  //             contact.homeAddress = req.body.contact.homeAddress || contact.homeAddress;
-  //             contact.workAddress = req.body.contact.workAddress || contact.workAddress;
-  //             contact.organisation = req.body.contact.organisation || contact.organisation;
-  //             console.log('Contact about to be saved');
-
-  //           econtact.save((err, contactSaved) => {
-  //                 if (err) {
-  //                     res.status(500).send(err)
-  //                 }
-  //                 res.json({ contact: contactSaved });
-  //             });
-  //         }
-  //     });
-  // }
