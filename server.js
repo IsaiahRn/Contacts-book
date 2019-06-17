@@ -4,9 +4,8 @@ import bodyParser from 'body-parser';
 import morgan from 'morgan';
 import mongoose from 'mongoose';
 import http from 'http';
-import contactRoutes from './app/routes/contacts';
+import contactRoutes from './app/routes/contanctRouter';
 import route from './app/routes/random';
-
 
 require('dotenv').config();
 
@@ -38,6 +37,8 @@ app.use('/contacts', contactRoutes);
 app.use('/contacts', route);
 
 
+// Routes which should handle requests
+app.use('/contacts', contactRoutes);
 app.use((req, res, next) => {
   // Error Handling
   const error = new Error('Not Found');
