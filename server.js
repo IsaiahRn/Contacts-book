@@ -3,6 +3,7 @@ import bodyParser from 'body-parser';
 import morgan from 'morgan';
 import mongoose from 'mongoose';
 import http from 'http';
+import contactRoutes from './app/routes/contacts';
 
 require('dotenv').config();
 
@@ -21,6 +22,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 mongoose.connect(process.env.DB_URL, { useNewUrlParser: true })
   .then(() => console.log('Connection Successful'))
   .catch(error => console.error(error));
+
+// Routes which should handle requests
+app.use("/contacts", contactRoutes);
 
 app.use((req, res, next) => {
   // Error Handling
