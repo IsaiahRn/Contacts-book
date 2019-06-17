@@ -4,7 +4,7 @@ node_js: 10.16.0
 
 before_script: 
   - sleep 15
-  - mongo dbName --eval 'db.createUser({user:"travis",pwd:"test",roles:["readWrite"]});'
+  - mongo demo --eval 'db.createUser({user:"testUser",pwd:"xyz123",roles:["readWrite"]});'
 
 script: 
   - npm test
