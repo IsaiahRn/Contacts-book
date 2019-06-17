@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import Contact from '../models/models';
 
-export const postContact = async (req, res, next) => {
+export const postContact = (req, res, next) => {
   const contactUser = new Contact({
     _id: new mongoose.Types.ObjectId(),
     firstname: req.body.firstname,
@@ -12,18 +12,18 @@ export const postContact = async (req, res, next) => {
     workAddress: req.body.workAddress,
     organisation: req.body.organisation,
   });
-  try {
-    const data = await contactUser.save();
-
-    return res.status(201).json({
-      data,
-      Message: 'sucessfully posted contact',
+  contactUser.save()
+    .then((data) => {
+      res.status(201).json({
+        data,
+        Message: 'sucessfully posted contact',
+      });
+    })
+    .catch((error) => {
+      res.status(400).json({
+        error,
+      });
     });
-  } catch (error) {
-    res.status(400).json({
-      error,
-    });
-  }
 };
 
 export const getContacts = (req, res, next) => {
