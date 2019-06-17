@@ -10,12 +10,15 @@ chai.use(chaiHttp);
 dotenv.config();
 
 describe('Contact Endpoints', () => {
+  let getId;
   it('Should create a contact', (done) => {
     chai.request(server)
       .post('/contacts')
       .send(dummy.newContact)
       .set('Accept', 'Application/JSON')
       .end((err, res) => {
+        console.log(res.body);
+        getId = res.body.data._id;
         res.body.should.be.an('Object');
         res.body.should.have.property('status').equal(201);
         res.body.should.have.property('data');
@@ -33,6 +36,35 @@ describe('Contact Endpoints', () => {
         res.body.should.be.an('Object');
         res.body.should.have.property('status').equal(400);
         res.body.should.have.property('error');
+        done();
+      });
+  });
+
+  // console.log(getId);
+
+  it('should a contact deleted successful', (done) => {
+    chai.request(server)
+      .delete(`/contacts/${getId}/delete`)
+      .end((error, res) => {
+        res.should.have.status(200);
+        done();
+      });
+  });
+
+  it('should a contact deleted successful', (done) => {
+    chai.request(server)
+      .delete(`/contacts/${getId}/delete`)
+      .end((error, res) => {
+        res.should.have.status(404);
+        done();
+      });
+  });
+
+  it('should a contact deleted successful', (done) => {
+    chai.request(server)
+      .delete(`/contacts/${getId}1/delete`)
+      .end((error, res) => {
+        res.should.have.status(400);
         done();
       });
   });
