@@ -71,7 +71,6 @@ describe('Contact Endpoints', () => {
 });
 
 describe('PATCH /contacts/<contactId>', () => {
-  let getId;
   it('should update an existing contact', (done) => {
     chai
       .request(server)
@@ -80,17 +79,7 @@ describe('PATCH /contacts/<contactId>', () => {
       .set('Accept', 'Application/JSON')
       .end((err, res) => {
         res.body.should.be.an('Object');
-        done();
-      });
-  });
-
-  it('should update an existing contact', (done) => {
-    chai
-      .request(server)
-      .patch(`/contacts/${getId}`)
-      .end((err, res) => {
-        res.body.should.be.an('Object');
-        res.should.have.status(403);
+        res.should.have.status(200);
         done();
       });
   });
