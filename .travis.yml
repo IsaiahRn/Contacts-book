@@ -7,7 +7,7 @@ services:
 
 before_script: 
   - sleep 15
-  - mongo demo --eval 'db.createUser({user:"testUser",pwd:"xyz123",roles:["readWrite"]});'
+  - mongo testcontacts --eval 'db.createUser({user:"testContacts",pwd:"xyz123",roles:["readWrite"]});'
 
 script: 
   - npm run test
