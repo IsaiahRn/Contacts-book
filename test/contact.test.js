@@ -79,7 +79,6 @@ describe('PATCH /contacts/<contactId>', () => {
       .set('Accept', 'Application/JSON')
       .end((err, res) => {
         res.body.should.be.an('Object');
-        res.body.data.should.be.an('object');
         done();
       });
   });

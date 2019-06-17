@@ -29,17 +29,6 @@ const updateContactData = {
   organisation: 'andela'
 };
 
-const updateLoanData2 = {
-  id: 1,
-  firstname: 'karenzi',
-  lastname: 'david',
-  telephone: 789998782323,
-  email: 'david@mail.com',
-  homeAddress: 'gisozi',
-  workAddress: 'kiyovu',
-  organisation: 'andela'
-};
-
 export default {
-  newContact, falseContact, updateContactData, updateLoanData2
+  newContact, falseContact, updateContactData
 };
