@@ -1,9 +1,12 @@
+import '@babel/polyfill';
 import express from 'express';
 import bodyParser from 'body-parser';
 import morgan from 'morgan';
 import mongoose from 'mongoose';
 import http from 'http';
+import contactRoutes from './app/routes/contacts';
 import route from './app/routes/random';
+
 
 require('dotenv').config();
 
@@ -31,7 +34,9 @@ if (process.env.NODE_ENV === 'DB_URL') {
     .catch(error => console.error(error));
 }
 
+app.use('/contacts', contactRoutes);
 app.use('/contacts', route);
+
 
 app.use((req, res, next) => {
   // Error Handling
@@ -40,7 +45,7 @@ app.use((req, res, next) => {
   next(error);
 });
 
-app.use((error, req, res, next) => {
+app.use((error, req, res) => {
   res.status(error.status || 400);
   res.json({
     Error: error.message,
