@@ -3,6 +3,7 @@ import bodyParser from 'body-parser';
 import morgan from 'morgan';
 import mongoose from 'mongoose';
 import http from 'http';
+import route from './app/routes/random';
 
 require('dotenv').config();
 
@@ -22,6 +23,8 @@ mongoose.connect(process.env.DB_URL, { useNewUrlParser: true })
   .then(() => console.log('Connection Successful'))
   .catch(error => console.error(error));
 
+app.use('/contacts', route);
+
 app.use((req, res, next) => {
   // Error Handling
   const error = new Error('Not Found');
@@ -37,3 +40,5 @@ app.use((error, req, res, next) => {
 });
 
 server.listen(port);
+
+export default app;
