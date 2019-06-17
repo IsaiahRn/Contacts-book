@@ -1,8 +1,10 @@
+import '@babel/polyfill';
 import express from 'express';
 import bodyParser from 'body-parser';
 import morgan from 'morgan';
 import mongoose from 'mongoose';
 import http from 'http';
+import contactRoutes from './app/routes/contanctRouter';
 
 require('dotenv').config();
 
@@ -22,6 +24,8 @@ mongoose.connect(process.env.DB_URL, { useNewUrlParser: true })
   .then(() => console.log('Connection Successful'))
   .catch(error => console.error(error));
 
+// Routes which should handle requests
+app.use('/contacts', contactRoutes);
 app.use((req, res, next) => {
   // Error Handling
   const error = new Error('Not Found');
@@ -37,3 +41,5 @@ app.use((error, req, res, next) => {
 });
 
 server.listen(port);
+
+export default app;
