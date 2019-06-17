@@ -1,3 +1,4 @@
+import '@babel/polyfill';
 import express from 'express';
 import bodyParser from 'body-parser';
 import morgan from 'morgan';
@@ -24,7 +25,7 @@ mongoose.connect(process.env.DB_URL, { useNewUrlParser: true })
   .catch(error => console.error(error));
 
 // Routes which should handle requests
-app.use("/contacts", contactRoutes);
+app.use('/contacts', contactRoutes);
 
 app.use((req, res, next) => {
   // Error Handling
@@ -33,7 +34,7 @@ app.use((req, res, next) => {
   next(error);
 });
 
-app.use((error, req, res, next) => {
+app.use((error, req, res) => {
   res.status(error.status || 500);
   res.json({
     Error: error.message,
@@ -41,3 +42,5 @@ app.use((error, req, res, next) => {
 });
 
 server.listen(port);
+
+export default server;
