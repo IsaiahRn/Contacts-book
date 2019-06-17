@@ -20,9 +20,15 @@ app.use(bodyParser.json());
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
-mongoose.connect(process.env.DB_URL, { useNewUrlParser: true })
-  .then(() => console.log('Connection Successful'))
-  .catch(error => console.error(error));
+if (process.env.DB_URL_TEST === 'DB_URL_TEST') {
+  mongoose.connect(process.env.DB_URL_TEST, { useNewUrlParser: true })
+    .then(() => console.log('Connection Successful'))
+    .catch(error => console.error(error));
+} else {
+  mongoose.connect(process.env.DB_URL, { useNewUrlParser: true })
+    .then(() => console.log('Connection Successful'))
+    .catch(error => console.error(error));
+}
 
 // Routes which should handle requests
 app.use('/contacts', contactRoutes);
@@ -35,7 +41,7 @@ app.use((req, res, next) => {
 });
 
 app.use((error, req, res) => {
-  res.status(error.status || 500);
+  res.status(error.status || 400);
   res.json({
     Error: error.message,
   });
@@ -43,4 +49,4 @@ app.use((error, req, res) => {
 
 server.listen(port);
 
-export default server;
+export default app;

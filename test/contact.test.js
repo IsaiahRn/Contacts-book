@@ -22,8 +22,18 @@ describe('Contact Endpoints', () => {
         res.body.data.should.be.an('object');
         done();
       });
-    // .catch((err) => {
-    //   done(err);
-    // });
+  });
+
+  it('Should not create a contact if email is valid', (done) => {
+    chai.request(server)
+      .post('/contacts')
+      .send(dummy.falseContact)
+      .set('Accept', 'Application/JSON')
+      .end((err, res) => {
+        res.body.should.be.an('Object');
+        res.body.should.have.property('status').equal(400);
+        res.body.should.have.property('error');
+        done();
+      });
   });
 });
