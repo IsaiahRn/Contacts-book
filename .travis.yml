@@ -2,9 +2,12 @@ language: node_js
 
 node_js: 10.16.0
 
+services:
+  - mongodb
+
 before_script: 
   - sleep 15
   - mongo demo --eval 'db.createUser({user:"testUser",pwd:"xyz123",roles:["readWrite"]});'
 
 script: 
-  - npm test
+  - npm run test
