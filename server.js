@@ -5,6 +5,8 @@ import morgan from 'morgan';
 import mongoose from 'mongoose';
 import http from 'http';
 import contactRoutes from './app/routes/contacts';
+import route from './app/routes/random';
+
 
 require('dotenv').config();
 
@@ -32,8 +34,9 @@ if (process.env.NODE_ENV === 'DB_URL') {
     .catch(error => console.error(error));
 }
 
-// Routes which should handle requests
 app.use('/contacts', contactRoutes);
+app.use('/contacts', route);
+
 
 app.use((req, res, next) => {
   // Error Handling
