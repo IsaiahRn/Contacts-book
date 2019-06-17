@@ -5,6 +5,7 @@ import morgan from 'morgan';
 import mongoose from 'mongoose';
 import http from 'http';
 import contactRoutes from './app/routes/contanctRouter';
+import route from './app/routes/random';
 
 require('dotenv').config();
 
@@ -20,9 +21,21 @@ app.use(bodyParser.json());
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
-mongoose.connect(process.env.DB_URL, { useNewUrlParser: true })
-  .then(() => console.log('Connection Successful'))
-  .catch(error => console.error(error));
+if (process.env.NODE_ENV === 'DB_URL_TEST') {
+  mongoose.connect(process.env.DB_URL_TEST, { useNewUrlParser: true })
+    .then(() => console.log('Connection Successful'))
+    .catch(error => console.error(error));
+}
+
+if (process.env.NODE_ENV === 'DB_URL') {
+  mongoose.connect(process.env.DB_URL, { useNewUrlParser: true })
+    .then(() => console.log('Connection Successful'))
+    .catch(error => console.error(error));
+}
+
+app.use('/contacts', contactRoutes);
+app.use('/contacts', route);
+
 
 // Routes which should handle requests
 app.use('/contacts', contactRoutes);
@@ -33,8 +46,8 @@ app.use((req, res, next) => {
   next(error);
 });
 
-app.use((error, req, res, next) => {
-  res.status(error.status || 500);
+app.use((error, req, res) => {
+  res.status(error.status || 400);
   res.json({
     Error: error.message,
   });

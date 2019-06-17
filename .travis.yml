@@ -2,9 +2,19 @@ language: node_js
 
 node_js: 10.16.0
 
+services:
+  - mongodb
+
 before_script: 
   - sleep 15
-  - mongo dbName --eval 'db.createUser({user:"travis",pwd:"test",roles:["readWrite"]});'
+  - mongo testcontacts --eval 'db.createUser({user:"testContact",pwd:"xyz123",roles:["readWrite"]});'
 
 script: 
-  - npm test
+  - npm run test
+
+after_success:
+  - npm run coveralls
+
+env: 
+  global:
+    - DB_URL_TEST=mongodb://testContact:xyz123@localhost:27017/testcontacts

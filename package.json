@@ -4,8 +4,8 @@
   "description": "You can use the [editor on GitHub](https://github.com/kodek-sleuth/Contacts-book/edit/master/README.md) to maintain and preview the content for your website in Markdown files.",
   "main": "app.js",
   "scripts": {
-    "test": "mocha --require @babel/register ./test --timeout 10000 --exit",
-    "start": "nodemon --exec babel-node server.js",
+    "test": "NODE_ENV=DB_URL_TEST mocha --require @babel/register ./test --timeout 10000 --exit",
+    "start": "NODE_ENV=DB_URL nodemon --exec babel-node server.js",
     "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls"
   },
   "repository": {
@@ -22,9 +22,10 @@
     "@babel/cli": "^7.4.4",
     "@babel/core": "^7.4.4",
     "@babel/node": "^7.2.2",
+    "@babel/polyfill": "^7.4.4",
     "@babel/preset-env": "^7.4.3",
     "@babel/register": "^7.4.4",
-    "@babel/polyfill": "^7.4.4",
+    "@hapi/joi": "^15.0.3",
     "body-parser": "^1.19.0",
     "dotenv": "^8.0.0",
     "express": "^4.17.1",
