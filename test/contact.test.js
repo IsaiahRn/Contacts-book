@@ -37,3 +37,19 @@ describe('Contact Endpoints', () => {
       });
   });
 });
+
+describe('PATCH /contacts/<contactId>', () => {
+  it('should update an existing contact', (done) => {
+    chai
+      .request(server)
+      .patch('/contacts/5d079ddae071b71c9851b341')
+      .send(dummy.updateContactData)
+      .set('Accept', 'Application/JSON')
+      .end((err, res) => {
+        res.body.should.be.an('Object');
+        res.body.should.have.property('status').equal(200);
+        res.body.data.should.be.an('object');
+        done();
+      });
+  });
+});
