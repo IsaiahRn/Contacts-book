@@ -19,9 +19,15 @@ app.use(bodyParser.json());
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
-mongoose.connect(process.env.DB_URL_TEST, { useNewUrlParser: true })
-  .then(() => console.log('Connection Successful'))
-  .catch(error => console.error(error));
+if (process.env.DB_URL_TEST === 'DB_URL_TEST') {
+  mongoose.connect(process.env.DB_URL_TEST, { useNewUrlParser: true })
+    .then(() => console.log('Connection Successful'))
+    .catch(error => console.error(error));
+} else {
+  mongoose.connect(process.env.DB_URL, { useNewUrlParser: true })
+    .then(() => console.log('Connection Successful'))
+    .catch(error => console.error(error));
+}
 
 app.use('/contacts', route);
 

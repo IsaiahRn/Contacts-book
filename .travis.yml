@@ -14,3 +14,7 @@ script:
 
 after_success:
   - npm run coveralls
+
+env: 
+  globals:
+    - DB_URL_TEST=mongodb://testContact:xyz123@localhost:27017/testcontacts
