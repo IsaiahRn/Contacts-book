@@ -39,20 +39,12 @@ app.use('/contacts', route);
 app.use('/contacts', view);
 // Routes which should handle requests
 app.use('/contacts', contactRoutes);
-app.use((req, res, next) => {
-  // Error Handling
-  const error = new Error('Not Found');
-  error.status = 404;
-  next(error);
-});
-
-app.use((error, req, res) => {
-  res.status(error.status || 400);
-  res.json({
-    Error: error.message,
+app.all('*', (_req, res) => {
+  res.status(400).json({
+    status: 400,
+    message: 'route doesnot exist',
   });
 });
-
 server.listen(port);
 
 export default app;
