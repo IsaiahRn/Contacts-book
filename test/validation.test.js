@@ -1,4 +1,4 @@
-import Joi from '@hapi/joi'
+import Joi from '@hapi/joi';
 import dummy from './dummy';
 import validation from '../app/helpers/validation';
 
