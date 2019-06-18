@@ -21,6 +21,7 @@ app.use(morgan('dev')); // Enabling data to be logged to console
 app.use(bodyParser.json());
 
 app.use(bodyParser.urlencoded({ extended: true }));
+mongoose.set('useFindAndModify', false);
 
 if (process.env.NODE_ENV === 'DB_URL_TEST') {
   mongoose.connect(process.env.DB_URL_TEST, { useNewUrlParser: true })

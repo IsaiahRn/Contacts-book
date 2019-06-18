@@ -44,6 +44,45 @@ class contactController {
     }
   }
 
+  static async updateContact(req, res){
+          if (!req.body.firstname || !req.body.lastname || !req.body.telephone || !req.body.email || !req.body.homeAddress || !req.body.workAddress || !req.body.organisation) {
+              res.status(403).end();
+              return res.status(403).send({
+                message: "fields can not be empty"
+              });
+          }
+          Contact.findByIdAndUpdate(req.params.id, {
+            firstname: req.body.firstname || contact.firstname,
+            lastname: req.body.lastname || contact.lastname,
+            telephone: req.body.telephone || contact.telephone,
+            email: req.body.email || contact.email,
+            homeAddress: req.body.homeAddress || contact.homeAddress,
+            workAddress: req.body.workAddress || contact.workAddress,
+            organisation: req.body.organisation || contact.organisation,
+          }, {new: true})
+          .then(contact => {
+            if(!contact){
+              return res.status(404).send({
+                  message: "Contact not found with id " + req.params.id
+              });
+            }
+            return res.status(200).json({
+              message: 'Contact Updated',
+              status: res.statusCode,
+              data: contact,
+            });
+          }).catch(err => {
+            if(err.kind === 'ObjectId') {
+                  return res.status(404).send({
+                      message: "Contact not found with id " + req.params.id
+                  });                
+                }
+                return res.status(500).send({
+                    message: "Error updating contact with id " + req.params.id
+                });
+          });
+        }
+
   static async deleteContact(req, res) {
     try {
       const { id } = req.params;

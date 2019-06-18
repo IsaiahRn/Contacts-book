@@ -82,8 +82,6 @@ describe('Contact Endpoints', () => {
       });
   });
 
-  // console.log(getId);
-
   it('should a contact deleted successful', (done) => {
     chai.request(server)
       .delete(`/contacts/${getId}/delete`)
@@ -107,6 +105,18 @@ describe('Contact Endpoints', () => {
       .delete(`/contacts/${getId}1/delete`)
       .end((error, res) => {
         res.should.have.status(400);
+        done();
+      });
+  });
+
+  it('should update an existing contact', (done) => {
+    chai
+      .request(server)
+      .patch('/contacts/5d079ddae071b71c9851b341')
+      .send(dummy.updateContactData)
+      .set('Accept', 'Application/JSON')
+      .end((err, res) => {
+        res.body.should.be.an('Object');
         done();
       });
   });
