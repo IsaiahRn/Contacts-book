@@ -82,8 +82,6 @@ describe('Contact Endpoints', () => {
       });
   });
 
-  // console.log(getId);
-
   it('should a contact deleted successful', (done) => {
     chai.request(server)
       .delete(`/contacts/${getId}/delete`)
@@ -110,9 +108,7 @@ describe('Contact Endpoints', () => {
         done();
       });
   });
-});
 
-describe('PATCH /contacts/<contactId>', () => {
   it('should update an existing contact', (done) => {
     chai
       .request(server)
