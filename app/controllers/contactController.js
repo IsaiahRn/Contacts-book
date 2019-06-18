@@ -118,6 +118,122 @@ class contactController {
       });
     }
   }
+  /**
+   * @function viewAll
+   * @param {Object} res
+   * @returns {Object}
+   */
+
+  static async viewAll(_req, res) {
+    try {
+      const findAll = await Contact.find({}).select(['-__v']).exec();
+      if (findAll) {
+        return res.status(200).json({ status: 200, data: findAll });
+      }
+      return res.status(404).json({ status: 404, error: 'no content found' });
+    } catch (err) {
+      return res.status(500).json({
+        status: res.statusCode,
+        error: `${err}`,
+      });
+    }
+  }
+
+  /**
+   * @function viewById
+   * @param {Object} req
+   * @param {Object} res
+   * @returns {Object}
+   */
+
+  static async viewById(req, res) {
+    try {
+      const findId = await Contact.findById({ _id: req.params.id })
+        .select(['-__v'])
+        .exec();
+
+      if (findId) {
+        return res.status(200).json({ status: 200, data: findId });
+      }
+      return res.status(404).json({ status: 404, error: 'no content found' });
+    } catch (err) {
+      return res.status(500).json({
+        status: res.statusCode,
+        error: `${err}`,
+      });
+    }
+  }
+
+  /**
+   * @function viewByEmail
+   * @param {Object} req
+   * @param {Object} res
+   * @returns {Object}
+   */
+  static async viewByEmail(req, res) {
+    const { email } = req.body;
+    const { error } = Joi.validate({ email }, validatation.EmailOnly);
+    if (error) {
+      const errors = [];
+      for (let index = 0; index < error.details.length; index += 1) {
+        errors.push(error.details[index].message.split('"').join(''));
+      }
+      return res.status(400).send({
+        status: res.statusCode,
+        error: errors,
+      });
+    }
+
+    try {
+      const findEmail = await Contact.findOne({ email })
+        .select(['-__v'])
+        .exec();
+
+      if (findEmail) {
+        return res.status(200).json({ status: 200, data: findEmail });
+      }
+      return res.status(404).json({ status: 404, error: 'no content found' });
+    } catch (err) {
+      return res.status(500).json({
+        status: res.statusCode,
+        error: `${err}`,
+      });
+    }
+  }
+
+  /**
+   * @function viewByName
+   * @param {Object} req
+   * @param {Object} res
+   * @returns {Object}
+   */
+  static async viewByName(req, res) {
+    const { name } = req.body;
+    const terms = name.split(' ');
+    let regexString = '';
+    for (let i = 0; i < terms.length; i += 1) {
+      regexString += terms[i];
+      if (i < terms.length - 1) regexString += '|';
+    }
+    const re = new RegExp(regexString, 'ig');
+
+    try {
+      const findByName = await Contact.find({})
+        .or([{ firstname: re }, { lastname: re }])
+        .select(['-__v'])
+        .exec();
+
+      if (findByName.length > 0) {
+        return res.status(200).json({ status: 200, data: findByName });
+      }
+      return res.status(404).json({ status: 404, error: 'no content found' });
+    } catch (err) {
+      return res.status(500).json({
+        status: res.statusCode,
+        error: `${err}`,
+      });
+    }
+  }
 }
 
 export default contactController;

@@ -17,12 +17,54 @@ describe('Contact Endpoints', () => {
       .send(dummy.newContact)
       .set('Accept', 'Application/JSON')
       .end((err, res) => {
-        console.log(res.body);
         getId = res.body.data._id;
         res.body.should.be.an('Object');
         res.body.should.have.property('status').equal(201);
         res.body.should.have.property('data');
         res.body.data.should.be.an('object');
+        done();
+      });
+  });
+
+  it('should return all contacts', (done) => {
+    chai.request(server)
+      .get('/contacts/all')
+      .end((err, res) => {
+        res.body.data.should.be.an('Array');
+        res.body.data[0].should.be.an('Object');
+        res.body.should.have.property('status').equal(200);
+        done();
+      });
+  });
+
+  it('should return contact by contact id', (done) => {
+    chai.request(server)
+      .get(`/contacts/view/${getId}`)
+      .end((err, res) => {
+        res.body.data.should.be.an('Object');
+        res.body.should.have.property('status').equal(200);
+        done();
+      });
+  });
+
+  it('should return contact by contact email', (done) => {
+    chai.request(server)
+      .get('/contacts/view/email')
+      .send({ email: 'hervera14@gmail.com' })
+      .end((err, res) => {
+        res.body.data.should.be.an('Object');
+        res.body.should.have.property('status').equal(200);
+        done();
+      });
+  });
+
+  it('should return contacts by name substringd', (done) => {
+    chai.request(server)
+      .get('/contacts/view/name')
+      .send({ name: 'ban' })
+      .end((err, res) => {
+        res.body.data.should.be.an('Array');
+        res.body.should.have.property('status').equal(200);
         done();
       });
   });
