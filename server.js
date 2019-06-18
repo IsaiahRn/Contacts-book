@@ -12,7 +12,7 @@ require('dotenv').config();
 
 const app = express(); // Connecting app to express
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 4000;
 
 const server = http.createServer(app);
 
