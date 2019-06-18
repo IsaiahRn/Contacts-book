@@ -1,6 +1,6 @@
 node_modules
 .nyc_output
 .env
-/.vscode
+.vscode
 .DS_Store
-/.dist
+.dist
